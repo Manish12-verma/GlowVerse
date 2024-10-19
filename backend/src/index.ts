@@ -37,16 +37,22 @@ app.post('/api/v1/signup', async (c) => {
 
 const body = await c.req.json();
 
-const user = await prisma.user.create({
+try{
+  const user = await prisma.user.create({
       data:{
         email:body.email,
-        password:body.password, 
+        password:body.password,
+        name:body.name
       }
 })
   const token = await sign({id:user.id},c.env.JWT_SECRET)
   return c.json({  
     jwt:token
   })
+}catch(e){
+   c.status(411);
+   return c.text('Invalid')
+}
 })
 
 
