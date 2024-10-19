@@ -21,6 +21,7 @@ blogRouter.use('/*', async (c,next)=>{
     // //if not we tell the user 403 status code 
       const authHeader = c.req.header("authorization") || "";  //default empty string
 
+     try{
     
       const user = await verify(authHeader,c.env.JWT_SECRET)
 
@@ -30,8 +31,12 @@ blogRouter.use('/*', async (c,next)=>{
           await next();
       }else{
         c.status(403)
-        return c.json({error:"unauthorized"})
+        return c.json({error:"You are not logged in"})
       }
+    }catch(e){
+        c.status(403)
+        return c.json({error:"You are not logged in"})
+    }
   })
 
 blogRouter.post('/',async (c)=>{
@@ -93,7 +98,7 @@ blogRouter.post('/',async (c)=>{
   })
   
   
-  
+
   
   blogRouter.get('/:id',async(c)=>{
         const id =  c.req.param("id");
