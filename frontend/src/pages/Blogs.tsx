@@ -1,50 +1,28 @@
-import { AppBar } from "../components/AppBar"
-import { BlogCard } from "../components/BlogCard"
+import { AppBar } from "../components/AppBar";
+import { BlogCard } from "../components/BlogCard";
+import { useBlogs } from "../hooks";
 
-export const Blogs=()=>{
-    return (
-      <div>
-        <AppBar/>
-        <div className="flex justify-center">
-        <div className="max-w-xl">
-             <BlogCard
-               authorName={"Manish"}
-               title={"Title of the blog"}
-               content={"Bkjbvhj hjvdbhjsbv   ejhvbhjrv evhve vh dhjv hv v dhjsfv ,hjd fvhjv hjbv  dvn vhjb dhv  v,jhbv jvbke,vbevr jhdf vngkjsdbv bg bdfjkb db j"}
-               publishedDate={"2nd feb 2024"}
-            />
-             <BlogCard
-               authorName={"Manish"}
-               title={"Title of the blog"}
-               content={"Bkjbvhj hjvdbhjsbv  v ejhvbhjrv evhve vh dhjv hv v dhjsfv ,hjd fvhjv hjbv  dvn vhjb dhv  v,jhbv jvbke,vbevr jhdf vngkjsdbv bg bdfjkb db j"}
-               publishedDate={"2nd feb 2024"}
-            />
-             <BlogCard
-               authorName={"Manish"}
-               title={"Title of the blog"}
-               content={"Bkjbvhj hjvdbhjsbv  v ejhvbhjrv evhve vh dhjv hv v dhjsfv ,hjd fvhjv hjbv  dvn vhjb dhv  v,jhbv jvbke,vbevr jhdf vngkjsdbv bg bdfjkb db j"}
-               publishedDate={"2nd feb 2024"}
-            />
-             <BlogCard
-               authorName={"Manish"}
-               title={"Title of the blog"}
-               content={"Bkjbvhj hjvdbhjsbv  v ejhvbhjrv evhve vh dhjv hv v dhjsfv ,hjd fvhjv hjbv  dvn vhjb dhv  v,jhbv jvbke,vbevr jhdf vngkjsdbv bg bdfjkb db j"}
-               publishedDate={"2nd feb 2024"}
-            />
-             <BlogCard
-               authorName={"Manish"}
-               title={"Title of the blog"}
-               content={"Bkjbvhj hjvdbhjsbv  v ejhvbhjrv evhve vh dhjv hv v dhjsfv ,hjd fvhjv hjbv  dvn vhjb dhv  v,jhbv jvbke,vbevr jhdf vngkjsdbv bg bdfjkb db j"}
-               publishedDate={"2nd feb 2024"}
-            />
-             <BlogCard
-               authorName={"Manish"}
-               title={"Title of the blog"}
-               content={"Bkjbvhj hjvdbhjsbv  v ejhvbhjrv evhve vh dhjv hv v dhjsfv ,hjd fvhjv hjbv  dvn vhjb dhv  v,jhbv jvbke,vbevr jhdf vngkjsdbv bg bdfjkb db j"}
-               publishedDate={"2nd feb 2024"}
-            />
+export const Blogs = () => {
+  const { loading, blogs } = useBlogs();
+
+  if (loading) {
+    return <div>loading....</div>;
+  }
+  return (
+    <div>
+      <AppBar/>
+      <div className="flex justify-center">
+        <div>
+          {blogs.map((blog) => 
+            <BlogCard
+              id={blog.id}
+              authorName={blog.author.name || "Anonymous"}
+              title={blog.title}
+              content={blog.content}
+              publishedDate={"2nd feb 2024"}
+            />)}
         </div>
-        </div>
-        </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
