@@ -14,15 +14,12 @@ export const blogRouter= new Hono<{
     }
 }>();
 
-
-
 blogRouter.use('/*', async (c,next)=>{
     // //get the header => verify the header => if the header is correct we can proceed
     // //if not we tell the user 403 status code 
       const authHeader = c.req.header("authorization") || "";  //default empty string
 
      try{
-    
       const user = await verify(authHeader,c.env.JWT_SECRET)
 
       if(user){
@@ -78,12 +75,10 @@ blogRouter.post('/',async (c)=>{
         return  c.json({
             message:"Inputs are not correct"
         })
-
     }
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-
     const blog = await prisma.post.update({
         where:{
             id:body.id
@@ -93,23 +88,33 @@ blogRouter.post('/',async (c)=>{
             content:body.content 
          }
     })
-
     return c.json({
         id:blog.id
     })
   })
 
   
-  //pagination can be added here => to return only few number of page at starting 
-
+  //pagination 
   blogRouter.get('/bulk',async (c)=>{
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-     
-   const blogs =  await prisma.post.findMany();
-
+    
+   const blogs =  await prisma.post.findMany(
+    {
+        select:{
+            content:true,
+            title:true,
+            id:true,
+            author:{
+                   select:{
+                    name:true
+                   }
+            }
+        }
+    }
+   );
 
     return c.json({
         blogs
@@ -129,6 +134,16 @@ blogRouter.post('/',async (c)=>{
     const blog = await prisma.post.findFirst({
         where:{
             id: id
+        },
+        select:{
+              id:true,
+              title:true,
+              content:true,
+              author:{
+                select:{
+                    name:true
+                }
+              }
         }
     })
 

@@ -29,7 +29,7 @@ userRouter.post('/signup', async (c) => {
   }).$extends(withAccelerate());
   
 
-  
+
   try{
     const user = await prisma.user.create({
         data:{
@@ -39,9 +39,9 @@ userRouter.post('/signup', async (c) => {
         }
   })
     const token = await sign({id:user.id},c.env.JWT_SECRET)
-    return c.json({  
-      jwt:token
-    })
+    return c.text(  
+      token
+    )
   }catch(e){
      c.status(411);
      return c.text('Invalid')
@@ -77,5 +77,5 @@ userRouter.post('/signup', async (c) => {
       }
   
       const jwt = await sign({ id: user.id }, c.env.JWT_SECRET); //if user exist signin
-      return c.json({ jwt });
+      return c.text(jwt);
   })
