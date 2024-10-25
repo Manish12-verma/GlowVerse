@@ -61,18 +61,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               <LabelledInput
                 label="Name"
                 placeholder="Enter your name"
-                value={postInputs.name}
-                error={errors.name}
+                value={postInputs.name || ""}
+                error={errors.name }
                 onChange={(e) => {
                   setPostInputs({ ...postInputs, name: e.target.value });
                 }}
+                
               />
             ) : null}
             <LabelledInput
               label="Email"
               placeholder="Enter your email"
               value={postInputs.email}
-              error={errors.email}
+              error={errors.email }
               onChange={(e) => {
                 setPostInputs({ ...postInputs, email: e.target.value });
               }}
