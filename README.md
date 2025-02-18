@@ -174,3 +174,75 @@ yarn dev  # or npm run dev
 - **Edge functions** (For serverless compatibility)
 
 
+
+# FRONTEND 
+
+## Overview
+This React application uses `react-router-dom` to manage client-side routing for a blogging platform. Users can sign up, sign in, browse blogs, view a single blog, and publish new blogs.
+
+## Setup
+
+### Installation
+Ensure you have Node.js installed, then run:
+
+```sh
+yarn install  # or npm install
+```
+
+### Running the App
+
+```sh
+yarn start  # or npm start
+```
+
+## Project Structure
+
+```
+/src
+ ├── pages
+ │   ├── Signup.jsx
+ │   ├── Signin.jsx
+ │   ├── Blog.jsx
+ │   ├── Blogs.jsx
+ │   ├── Publish.jsx
+ ├── App.css
+ ├── App.jsx
+ ├── main.jsx
+```
+
+## Routes
+
+### **Signup Page**
+`/signup`
+- Users can create an account.
+- Uses the `<Signup />` component.
+
+### **Signin Page**
+`/signin`
+- Users can log in to their account.
+- Uses the `<Signin />` component.
+
+### **View a Single Blog**
+`/blog/:id`
+- Displays details of a single blog post.
+- Uses the `<Blog />` component.
+
+### **View All Blogs**
+`/blogs`
+- Lists all available blog posts.
+- Uses the `<Blogs />` component.
+
+### **Publish a Blog**
+`/publish`
+- Users can create and publish new blog posts.
+- Uses the `<Publish />` component.
+
+## Dependencies
+
+- `react-router-dom` for routing
+- `react` for UI components
+
+
+
+
+
